@@ -5,7 +5,7 @@ const app = express();
 
 
 
-const connectionString= 'mongodb+srv://admin:admin@cluster0.jfber.mongodb.net/slot-data?retryWrites=true&w=majority';
+const connectionString= 'mongodb://heroku_vvz3nlgr:qiepu79g2s6aqnjcig70rgn413@ds111063.mlab.com:11063/heroku_vvz3nlgr';
 
 MongoClient.connect(connectionString, { useUnifiedTopology: true })
 .then(client => {
