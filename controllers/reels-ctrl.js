@@ -1,6 +1,6 @@
-const ShoppingListItem = require('../models/shoppinglist-model')
+const ReelsData = require('../models/reels-model')
 
-createShoppingListItem = (req, res) => {
+createReelsData = (req, res) => {
     const body = req.body
     
     if (!body) {
@@ -10,7 +10,7 @@ createShoppingListItem = (req, res) => {
         })
     }
 
-    const item = new ShoppingListItem(body)
+    const item = new ReelsData(body)
 
     if (!item) {
         return res.status(400).json({ success: false, error: err })
@@ -22,18 +22,18 @@ createShoppingListItem = (req, res) => {
             return res.status(201).json({
                 success: true,
                 id: item._id,
-                message: 'ShoppingListItem created!',
+                message: 'ReelsData created!',
             })
         })
         .catch(error => {
             return res.status(400).json({
                 error,
-                message: 'ShoppingListItem not created!',
+                message: 'ReelsData not created!',
             })
         })
 }
 
-updateShoppingListItem = async (req, res) => {
+updateReelsData = async (req, res) => {
     const body = req.body
 
     if (!body) {
@@ -43,11 +43,11 @@ updateShoppingListItem = async (req, res) => {
         })
     }
 
-    ShoppingListItem.findOne({ _id: req.params.id }, (err, item) => {
+    ReelsData.findOne({ _id: req.params.id }, (err, item) => {
         if (err) {
             return res.status(404).json({
                 err,
-                message: 'ShoppingListItem not found!',
+                message: 'ReelsData not found!',
             })
         }
         item.name = body.name
@@ -59,20 +59,20 @@ updateShoppingListItem = async (req, res) => {
                 return res.status(200).json({
                     success: true,
                     id: item._id,
-                    message: 'ShoppingListItem updated!',
+                    message: 'ReelsData updated!',
                 })
             })
             .catch(error => {
                 return res.status(404).json({
                     error,
-                    message: 'ShoppingListItem not updated!',
+                    message: 'ReelsData not updated!',
                 })
             })
     })
 }
 
-deleteShoppingListItem = async (req, res) => {
-    await ShoppingListItem.findOneAndDelete({ _id: req.params.id }, (err, item) => {
+deleteReelsData = async (req, res) => {
+    await ReelsData.findOneAndDelete({ _id: req.params.id }, (err, item) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
@@ -80,15 +80,15 @@ deleteShoppingListItem = async (req, res) => {
         if (!item) {
             return res
                 .status(404)
-                .json({ success: false, error: `ShoppingListItem not found` })
+                .json({ success: false, error: `ReelsData not found` })
         }
 
         return res.status(200).json({ success: true, data: item })
     }).catch(err => console.log(err))
 }
 
-getShoppingListItemById = async (req, res) => {
-    await ShoppingListItem.findOne({ _id: req.params.id }, (err, item) => {
+getReelsDataById = async (req, res) => {
+    await ReelsData.findOne({ _id: req.params.id }, (err, item) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
@@ -96,33 +96,33 @@ getShoppingListItemById = async (req, res) => {
         if (!item) {
             return res
                 .status(404)
-                .json({ success: false, error: `ShoppingListItem not found` })
+                .json({ success: false, error: `ReelsData not found` })
         }
         return res.status(200).json({ success: true, data: item })
     }).catch(err => console.log(err))
 }
 
 
-getShoppingListItems = async (req, res) => {
-    console.log("getShoppingListItems called")
+getReelsData = async (req, res) => {
+    console.log("getReelsData called")
 
-    await ShoppingListItem.find({}, (err, items) => {
+    await ReelsData.find({}, (err, items) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
         if (!items.length) {
             return res
                 .status(404)
-                .json({ success: false, error: `ShoppingListItem not found` })
+                .json({ success: false, error: `ReelsData not found` })
         }
         return res.status(200).json({ success: true, data: items })
     }).catch(err => console.log(err))
 }
 
 module.exports = {
-    createShoppingListItem,
-    updateShoppingListItem,
-    deleteShoppingListItem,
-    getShoppingListItems,
-    getShoppingListItemById,
+    createReelsData,
+    updateReelsData,
+    deleteReelsData,
+    getReelsData,
+    getReelsDataById,
 }
